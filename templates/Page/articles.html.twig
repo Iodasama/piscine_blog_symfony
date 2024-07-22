@@ -1,0 +1,22 @@
+<p>Pika Pika !!</p>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokemons</title>
+</head>
+<body>
+<p>Les articles du blog</p>
+{% for pokemon in pokemons %}
+    <p>{{ pokemon.id }}</p>
+    <p>{{ pokemon.title }}</p>
+    <p>{{ pokemon.content }}</p>
+    <img src="{{ pokemon.image }}">
+
+{% endfor %}
+</body>
+</html>
