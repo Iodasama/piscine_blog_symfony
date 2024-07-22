@@ -1,8 +1,11 @@
-<!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="style/css" href="../assets/styles/app.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title>{% block title %}Pokemons!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
         {% endblock %}
@@ -12,6 +15,42 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+
+            <img src= "https://i.etsystatic.com/42813710/r/il/0f9f8c/5604298935/il_fullxfull.5604298935_i5n0.jpg" alt="logo">
+
+            <h1>Mon blog Pokemon </h1>
+
+            <nav>
+                <ul>
+                    <li>Home</li>
+                    <li>Blog</li>
+                    <li>联系我</li>
+                    <li><a href="http://localhost/piscine-php-tpblog/Views/index.php">Home</a></li>
+                    <li><a href="http://localhost/piscine-php-tpblog/Views/contact.php">Contact</a></li>
+                    <li><a href="http://localhost/piscine-php-tpblog/Views/reviews.php">Reviews</a></li>
+                    <li><a href="http://localhost/piscine-php-tpblog/Views/categories.php">Categories</a></li>
+                    <li><a href="http://localhost/piscine-php-tpblog/Views/article.php">Article</a></li>
+
+                </ul>
+            </nav>
+        </header>
+
+
+    {% block content%}
+    {% endblock %}
+
+
+
+    <footer>
+        <img src= "https://static.posters.cz/image/750/tasses/pokemon-logo-and-pikachu-i59768.jpg" alt="logo">
+        <p>&copy; 2024 Company Name. All rights reserved.</p>
+        <i class="fa-solid fa-torii-gate"></i>
+    </footer>
+    <!-- https://imgsrc.cineserie.com/2022/02/fotojet-3.jpg?ver=1 -->
+
     </body>
 </html>
+
+
+

@@ -1,23 +1,20 @@
-<p>Pika Pika !!</p>
+{% extends "Page/base.html.twig" %}
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pokemons</title>
-</head>
-<body>
-<p>Les articles du blog</p>
-{% for pokemon in pokemons %}
-    {% if pokemonisPublished %}
-    <p>{{ pokemon.id }}</p>
-    <p>{{ pokemon.title }}</p>
-    <p>{{ pokemon.content }}</p>
-    <img src="{{ pokemon.image }}">
-    {% endif %}
-{% endfor %}
-</body>
-</html>
+
+
+{% block content %}
+    <!--symfony configure pour que cela parte directement depuis Page donc pas besoin de mettre templates meme si on cree le dossier Partial pour mettre sa base il faudra ecrire 'Partial/articles.html.twig' sans passer par templates-->
+    <main>
+        <p>Pika Pika !!</p>
+        <p>Les articles du blog</p>
+    {% for pokemon in pokemons %}
+        {% if pokemon.isPublished %}
+            <p>{{ pokemon.id }}</p>
+            <p>{{ pokemon.title }}</p>
+            <p>{{ pokemon.content }}</p>
+            <img src="{{ pokemon.image }}">
+        {% endif %}
+    {% endfor %}
+
+    </main>
+{% endblock %}
