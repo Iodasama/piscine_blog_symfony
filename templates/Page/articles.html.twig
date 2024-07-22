@@ -12,11 +12,12 @@
 <body>
 <p>Les articles du blog</p>
 {% for pokemon in pokemons %}
+    {% if pokemonisPublished %}
     <p>{{ pokemon.id }}</p>
     <p>{{ pokemon.title }}</p>
     <p>{{ pokemon.content }}</p>
     <img src="{{ pokemon.image }}">
-
+    {% endif %}
 {% endfor %}
 </body>
 </html>
