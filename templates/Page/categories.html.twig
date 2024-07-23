@@ -1,0 +1,13 @@
+{% extends "Page/base.html.twig" %}
+
+
+
+{% block content %}
+    <main>
+        <p>Pika Pika !!</p>
+        <p>Les categories</p>
+        {% for categorie in categories %}
+                <p>{{categorie}}</p>
+        {% endfor %}
+    </main>
+{% endblock %}
