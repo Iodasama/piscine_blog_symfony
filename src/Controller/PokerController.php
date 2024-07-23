@@ -8,31 +8,30 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PokerController extends AbstractController
 {
-    #[Route('/poker', name: 'poker')]
-    public function poker()
-    {
+        #[Route('/poker', name: 'poker')]
+        public function poker() {
+
         $request = Request::createFromGlobals();
+        if (!$request->query->has('age')) {
 
-if (!$request->query->has('age')) {
+        return $this->render('Page/poker_form.html.twig');
 
-    return $this->render('Page/poker_form.html.twig');}
+        }
 
-else {
+        else {
 
-    $age=$request->query->get('age');
+        $age=$request->query->get('age');
+         if ($age>=18) {
 
-    if ($age>=18) {
+         return $this->render('Page/poker_welcome.html.twig');
 
-            return $this->render('Page/poker_welcome.html.twig');}
+         }
 
-            else {
+         else {
 
-                return $this->render('Page/get_out_MF.html.twig');}
+         return $this->render('Page/get_out_MF.html.twig');}
 
-}
-
-
-
+        }
 
     }
 }
