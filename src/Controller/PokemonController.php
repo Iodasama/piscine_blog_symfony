@@ -95,14 +95,14 @@ class PokemonController extends AbstractController
 
     }
 
-    #[Route('/pokemon_show', name: 'show_pokemon')]
-    public function showPokemon(Request $request):Response
+    #[Route('/pokemon_show/{idPokemon}', name: 'show_pokemon')]
+    public function showPokemon($idPokemon, Request $request):Response
         // je type ma variable $request elle n acceptera que la classe request
         //en typant ma methode je retourne une instance de la classe Response
     {
 //        $request= new Request($_GET, $_POST, etc);
 //        $request = Request::createFromGlobals();
-        $idPokemon = $request->query->get('id');
+//        $idPokemon = $request->query->get('id');
 
 
 

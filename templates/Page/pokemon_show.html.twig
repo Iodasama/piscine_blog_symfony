@@ -13,7 +13,7 @@
                 <h1 class="poke2">{{ pokemon.title }}</h1>
                 <p class="poke2"><img src="{{ pokemon.image }}"></p>
                 <h1 class="poke2">{{ pokemon.content }}</h1>
-                <a href="{{ path('show_pokemon') }}?id={{ pokemon.id }}">Go get Your Poke</a>
+                <a href="{{ path('show_pokemon', {idPokemon:pokemon.id}) }}">Go get Your Poke</a>
             {% else %}
                 <p class="poke">Your favorite Poke doesn't exist</p>
 
