@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1); // pour etre sur de l'affichage permet de reperer les erreurs par ex du string alors qu on attend un integer
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -9,13 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PokemonController extends AbstractController
 {
 
-    #[Route('/pokemon_show', name: 'show_pokemon')]
-    public function showPokemon()
+    private $pokemons;
+    public function __construct()
     {
-        $request = Request::createFromGlobals();
-        $idPokemon = $request->query->get('id');
-
-        $pokemons = [
+        $this-> pokemons = [
             [
                 'id' => 1,
                 'title' => 'Pikachu',
@@ -94,18 +92,34 @@ class PokemonController extends AbstractController
             ]
         ];
 
+
+    }
+
+    #[Route('/pokemon_show', name: 'show_pokemon')]
+    public function showPokemon(Request $request):Response
+        // je type ma variable $request elle n acceptera que la classe request
+        //en typant ma methode je retourne une instance de la classe Response
+    {
+//        $request= new Request($_GET, $_POST, etc);
+//        $request = Request::createFromGlobals();
+        $idPokemon = $request->query->get('id');
+
+
+
         $pokemonFound = null;
 
-        foreach ($pokemons as $pokemon) {
+        foreach ($this->pokemons as $pokemon) {
             if ($pokemon['id'] === (int)$idPokemon) {
                 $pokemonFound = $pokemon;
             }
 
         }
 
+
+
         return $this->render('Page/pokemon_show.html.twig', [
             'pokemon' => $pokemonFound
-        ]);
+        ]);  //si on veut typer le return on fait Response, en typant ma methode je retourne une instance de la classe Response
 
     }
 

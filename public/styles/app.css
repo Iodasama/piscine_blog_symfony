@@ -42,7 +42,7 @@ body {
 
 h2 {
 
-
+    width: 30%;
     color: #025B73;
     border: 0;
     line-height: 2.5;
@@ -73,7 +73,7 @@ h2:active {
 
 
 h3 {
-
+    width: 30%;
     color: #025B73;
     border: 0;
     line-height: 2.5;
@@ -437,7 +437,7 @@ width:30%;
 }
 
 .poke2 {
-
+    width:30%;
     animation-duration: 5s;
     animation-name: slidein;
 }
@@ -468,4 +468,10 @@ body {
     100% {
         background:orange;
     }
+}
+
+main {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }
