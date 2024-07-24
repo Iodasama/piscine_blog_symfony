@@ -9,10 +9,11 @@
         <p>Les articles du blog</p>
     {% for pokemon in pokemons %}
         {% if pokemon.isPublished %}
-            <p>{{ pokemon.id }}</p>
-            <p>{{ pokemon.title }}</p>
-            <p>{{ pokemon.content }}</p>
+            <h1>{{ pokemon.id }}</h1>
+            <h1>{{ pokemon.title }}</h1>
+            <H1>{{ pokemon.content }}</H1>
             <img src="{{ pokemon.image }}">
+            <a href="{{ path('show_pokemon') }} ?id={{ pokemon.id }}">Go get Your Poke</a>
         {% endif %}
     {% endfor %}
 
