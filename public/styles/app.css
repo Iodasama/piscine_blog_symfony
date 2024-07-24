@@ -419,3 +419,53 @@ width:30%;
 }*/
 
 
+.poke {
+    animation-duration: 5s;
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    from {
+        translate: 150vw 0;
+        scale: 200% 1;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 100% 1;
+    }
+}
+
+.poke2 {
+
+    animation-duration: 5s;
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    from {
+        translate: 150vw 0;
+        scale: 200% 1;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 100% 1;
+    }
+}
+
+body {
+    background: black;
+    animation: color-me-in 5s; /* other keywords like "infinite alternate" can be useful here */
+}
+
+@keyframes color-me-in {
+    /* You could think of as "step 1" */
+    0% {
+        background: skyblue;
+    }
+    /* You could think of as "step 2" */
+    100% {
+        background:orange;
+    }
+}
