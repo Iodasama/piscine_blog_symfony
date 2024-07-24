@@ -6,13 +6,19 @@
     <!--symfony configure pour que cela parte directement depuis Templates donc  Page donc pas besoin de mettre templates pour le chemin meme si on cree le dossier Partial pour mettre sa base il faudra ecrire 'Partial/articles.html.twig' sans indiquer  templates {Pourcent extends "Page/base.html.twig" Pourcent} -->
     <main>
         <h1>Pika Pika !!</h1>
-        <p class="poke">Your favorite Poke</p>
 
-            {% if pokemon.isPublished %}
-                <p class="poke2">{{ pokemon.id }}</p>
+
+            {% if pokemon and pokemon.isPublished %}
+                <p class="poke">Your favorite Poke is here</p>
                 <p class="poke2">{{ pokemon.title }}</p>
                 <p class="poke2"><img src="{{ pokemon.image }}"></p>
+                <p class="poke2">{{ pokemon.content }}</p>
+                <a href="{{ path('show_pokemon') }} ?id={{ pokemon.id }}">Go get Your Poke</a>
+            {% else %}
+                <p class="poke">Your favorite Poke doesn't exist</p>
+
             {% endif %}
+
 
     </main>
 {% endblock %}
