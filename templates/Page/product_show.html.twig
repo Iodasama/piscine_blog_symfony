@@ -1,0 +1,24 @@
+{% extends "Page/base.html.twig" %}
+
+{% block metatitle%} Get your Poke {% endblock %}
+
+{% block content %}
+    <!--symfony configure pour que cela parte directement depuis Templates donc  Page donc pas besoin de mettre templates pour le chemin meme si on cree le dossier Partial pour mettre sa base il faudra ecrire 'Partial/articles.html.twig' sans indiquer  templates {Pourcent extends "Page/base.html.twig" Pourcent} -->
+    <main>
+        <h1>Your Products !!</h1>
+
+        {% if product %}
+            <h1 class="poke">Your favorite Product here</h1>
+            <h1 class="poke2">{{ product.id }}</h1>
+            <h1 class="poke2">{{ product.title }}</h1>
+            <p class="poke2"><img src="{{ product.image }}"></p>
+            <h1 class="poke2">{{ product.price }}$</h1>
+            <h1 class="poke2">Discount {{ product.price_reduction }}$</h1>
+            <a href="{{ path('show_product', {idProduct:product.id}) }}">Go get Your Product</a>
+        {% else %}
+            <p class="poke">Your favorite Product doesn't exist</p>
+
+        {% endif %}
+
+    </main>
+{% endblock %}
