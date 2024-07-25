@@ -3,6 +3,7 @@
 declare(strict_types=1); // pour etre sur de l'affichage permet de reperer les erreurs par ex du string alors qu on attend un integer
 namespace App\Controller;
 
+use App\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -135,6 +136,12 @@ class PokemonController extends AbstractController
         return new Response ($html, 200); // pour me retourner un status 200
     }
 
+    #[Route('/pokemon-list-db', name: 'pokemon_list_db')]
+    public function listPokemonFromDb(PokemonRepository $pokemonRepository):Response {
+        $pokemons = $pokemonRepository->findAll();
+        return $this->render('Page/pokemon_list_db.html.twig', ['pokemons' => $pokemons]);
+    }
+// apres avoir crée des pokemons dans ma BDD (php myadmin), je recupere en BDD les pokemons et Symfony va generer une instance de la Table Pokemon cad PokemonRepository
 
 }
 
