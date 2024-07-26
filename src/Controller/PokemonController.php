@@ -4,6 +4,8 @@ declare(strict_types=1); // pour etre sur de l'affichage permet de reperer les e
 namespace App\Controller;
 
 use App\Repository\PokemonRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -181,8 +183,20 @@ class PokemonController extends AbstractController
 
     }
 
-}
+    #[Route('/pokemons/delete/{id}', name: 'delete_pokemon')]
 
+    public function deletePokemon(int $id, PokemonRepository $pokemonRepository, EntityManagerInterface $entityManager): Response
+    {
+        $pokemon = $pokemonRepository->find($id); // on instancie la classe PokemonRepository et on stocke dans la variable $pokemon
+        // on utilise la classe Entity Manager pour
+        $entityManager->remove($pokemon); //preparation : preparer la requete Sql de suppression
+        $entityManager->flush(); // execute : executer la requete préparée
+
+        return $this->redirectToRoute('pokemon_list_db'); // je redirige vers ma page list pokemon Bdd et je check si le pokemon a été supprimé
+
+    }
+
+}
 
 
 

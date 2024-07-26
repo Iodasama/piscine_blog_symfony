@@ -20,13 +20,13 @@ class PokemonRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('pokemon');
         // on crée une nouvelle methode qui permet de recuperer le constructeur de requete Sql en restant en php, alias c'est pour le nom de la table
         $query = $queryBuilder->select('pokemon')     // on lui demande de selectionner tous les Pokemons
-            ->where('pokemon.Title LIKE :search') // remplace recherche par recherche souple, bien mettre Title avec un T maj si on en a mis en creant sa colonne par convention on mettra une minuscule title en BDD
+            ->where('pokemon.Title LIKE :search') // remplace recherche par recherche souple, bien mettre Title avec un T maj si on en a mis en creant sa colonne, par convention on mettra une minuscule title en BDD
             ->setParameter('search','%'.$search.'%') // %% peu importe où les lettres vont se trouver en effectuant la recherche
             ->getQuery(); //
 
         $pokemons = $query->getResult(); // on recupere la liste des resultats  pour la requete
 
-        return $pokemons; // on retourne le resulat
+        return $pokemons; // on retourne le resultat
     }
 
 
