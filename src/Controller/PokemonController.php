@@ -184,19 +184,27 @@ class PokemonController extends AbstractController
     }
 
     #[Route('/pokemons/delete/{id}', name: 'delete_pokemon')]
-
     public function deletePokemon(int $id, PokemonRepository $pokemonRepository, EntityManagerInterface $entityManager): Response
     {
         $pokemon = $pokemonRepository->find($id); // on instancie la classe PokemonRepository et on stocke dans la variable $pokemon
         // on utilise la classe Entity Manager pour
-        $entityManager->remove($pokemon); //preparation : preparer la requete Sql de suppression
-        $entityManager->flush(); // execute : executer la requete préparée
+        if (!$pokemon) {
 
-        return $this->redirectToRoute('pokemon_list_db'); // je redirige vers ma page list pokemon Bdd et je check si le pokemon a été supprimé
+                $html = $this->renderView('Page/404.html.twig');
+                return new Response ($html, 404);
+            }
 
-    }
+            $entityManager->remove($pokemon); //preparation : preparer la requete Sql de suppression
+            $entityManager->flush(); // execute : executer la requete préparée
+
+
+            return $this->redirectToRoute('pokemon_list_db'); // je redirige vers ma page list pokemon Bdd et je check si le pokemon a été supprimé
+
+        }
+
 
 }
+
 
 
 
