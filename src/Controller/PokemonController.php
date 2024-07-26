@@ -3,6 +3,7 @@
 declare(strict_types=1); // pour etre sur de l'affichage permet de reperer les erreurs par ex du string alors qu on attend un integer
 namespace App\Controller;
 
+use App\Entity\Pokemon;
 use App\Repository\PokemonRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -201,6 +202,42 @@ class PokemonController extends AbstractController
             return $this->redirectToRoute('pokemon_list_db'); // je redirige vers ma page list pokemon Bdd et je check si le pokemon a été supprimé
 
         }
+
+    #[Route('/pokemons/insert/manual_insert', name: 'insert_pokemon')]
+    public function insertPokemon(EntityManagerInterface $entityManager): Response
+    {
+        $pokemon = new Pokemon(
+            title: 'Roucoups',
+            description: 'Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36',
+            image: 'https://www.pokepedia.fr/images/d/d3/Miniature_0018_DEPS.png',
+            type: 'vol',
+
+        );
+
+        // deuxieme  methode la premiere etant directement  dans le construct dans pokemon.php
+//        $pokemon = new Pokemon;
+//        $pokemon->setTitle('Roucoups');
+//        $pokemon->setDescription('Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36');
+//        $pokemon->setImage('https://www.pokepedia.fr/images/d/d3/Miniature_0018_DEPS.png');
+//        $pokemon->setType('vol');
+
+        $entityManager->persist($pokemon); //preparation : preparer la requete Sql de suppression
+        $entityManager->flush(); // execute : executer la requete préparée
+
+        return $this->redirectToRoute('pokemon_list_db');
+    }
+//('pokemons/insert/manual_insert', ['pokemon=>$pokemon']);
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

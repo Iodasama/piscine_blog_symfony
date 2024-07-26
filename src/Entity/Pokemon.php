@@ -25,18 +25,21 @@ class Pokemon
     #[ORM\Column(length: 255)]
     private ?string $type;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type2;
 
-    public function getType2(): ?string
-    {
-        return $this->type2;
-    }
 
-    public function setType2(?string $type2): void
+    public function __construct($title,$description,$image,$type)
+
     {
-        $this->type2 = $type2;
-    }
+        $this->Title = $title;
+        $this->Description = $description;
+        $this->Image = $image;
+        $this->type = $type;
+
+}
+
+
+
+
 
     public function getType(): ?string
     {
