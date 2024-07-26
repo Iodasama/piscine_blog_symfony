@@ -12,12 +12,12 @@
         <input type="submit" value="CATCH YOUR POKE">
     </form>
 
-    {% if pokemon %}
-        <section class=""
-    <h1 class="poke">Your favorite Poke is here</h1>
-    <h1 class="poke2">{{ pokemon.title }}</h1>
-    <p class="poke2"><img src="{{ pokemon.image }}"></p>
-    <h1 class="poke2">{{ pokemon.description }}</h1>
-   {% endif %}
-
+        {% for pokemon in pokemons  %}
+        <section class=""></section>
+            <h1 class="poke">Your favorite Poke is here</h1>
+            <h1 class="poke2">{{ pokemon.title }}</h1>
+            <p class="poke2"><img src="{{ pokemon.image }}"></p>
+            <h1 class="poke2">{{ pokemon.description }}</h1>
+        {% endfor %}
 {% endblock %}
+

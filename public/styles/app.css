@@ -1,6 +1,9 @@
 @font-face {
     font-family: 'Pokemon Hollow';
     src:url("../Font/pokemonFont/Pokemon Hollow.ttf") ;
+
+/* on peut mettre aussi  src:url("../Font/pokemonFont/Pokemon Hollow.ttf") format('truetype')*/
+
 }
 
 body {

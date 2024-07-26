@@ -4,10 +4,12 @@ declare(strict_types=1); // pour etre sur de l'affichage permet de reperer les e
 namespace App\Controller;
 
 use App\Repository\PokemonRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use function PHPUnit\Framework\isEmpty;
 class PokemonController extends AbstractController
 {
 
@@ -15,6 +17,8 @@ class PokemonController extends AbstractController
 
     public function __construct()
     {
+
+
         $this->pokemons = [
             [
                 'id' => 1,
@@ -139,6 +143,7 @@ class PokemonController extends AbstractController
     public function listPokemonFromDb(PokemonRepository $pokemonRepository): Response
     {
         $pokemons = $pokemonRepository->findAll();
+
         return $this->render('Page/pokemon_list_db.html.twig', ['pokemons' => $pokemons]);
     }
 
@@ -157,21 +162,21 @@ class PokemonController extends AbstractController
     public function searchPokemon(Request $request, PokemonRepository $pokemonRepository): Response
     {
 
-        $pokemonFound = null;
+        $pokemonsFound = [];
 
         if ($request->request->has('title')) {
 
-            $search = $request->request->get('title');
-            $pokemonFound = $pokemonRepository->findOneBy(['Title'=>$search]);
+            $titleSearched = $request->request->get('title');
+            $pokemonsFound = $pokemonRepository->findLikeTitle($titleSearched);
 
-            if(!$pokemonFound){
+            if (count($pokemonsFound) === 0) {
                 $html = $this->renderView('Page/404.html.twig');
                 return new Response ($html, 404);
             }
         }
 
 
-        return $this->render('Page/pokemon-search.html.twig', ['pokemon' => $pokemonFound]);
+        return $this->render('Page/pokemon-search.html.twig', ['pokemons' => $pokemonsFound]);
 
 
     }
