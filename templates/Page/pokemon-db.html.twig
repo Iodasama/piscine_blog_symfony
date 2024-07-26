@@ -6,12 +6,14 @@
 
     <main>
         <h1>Get Your Pokemons from DB </h1>
-        {% for pokemon in pokemons %}
+
             <h1 class="poke">Your favorite Poke is here</h1>
             <h1 class="poke2">{{ pokemon.title }}</h1>
             <p class="poke2"><img src="{{ pokemon.image }}"></p>
             <h1 class="poke2">{{ pokemon.description }}</h1>
-            <a href="{{ path('pokemon_db_by_id', {id:pokemon.id}) }}">Go get Your Poke</a>
-        {% endfor %}
+
+
+
+
     </main>
 {% endblock %}

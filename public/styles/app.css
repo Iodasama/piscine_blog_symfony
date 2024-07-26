@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Pokemon Hollow';
+    src:url("../Font/pokemonFont/Pokemon Hollow.ttf") ;
+}
+
 body {
     background-color: skyblue;
 }
@@ -474,4 +479,23 @@ main {
     display:flex;
     flex-direction: column;
     align-items: center;
+}
+
+label {
+    font-size: xx-large;
+    color:#52110D;
+    text-shadow: #FC0 1px 0 10px;
+    font-family:"Pokemon Hollow";
+}
+
+input {
+    font-size: x-large;
+    color:#52110D;
+    text-shadow: #FC0 1px 0 10px;
+    font-family:"Pokemon Hollow";
+}
+
+.pokemonForm {
+
+
 }

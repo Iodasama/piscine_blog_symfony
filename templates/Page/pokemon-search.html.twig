@@ -1,0 +1,23 @@
+{% extends "Page/base.html.twig" %}
+
+{% block metatitle%} Pokemon_Form {% endblock %}
+
+{% block content %}
+    <form class="pokemonForm" method="post">
+{#        avec method get ca renvoie dans l url avec ?=#}
+        <label>
+           Go get Your Poke
+            <input type="text" name="title">
+        </label>
+        <input type="submit" value="CATCH YOUR POKE">
+    </form>
+
+    {% if pokemon %}
+        <section class=""
+    <h1 class="poke">Your favorite Poke is here</h1>
+    <h1 class="poke2">{{ pokemon.title }}</h1>
+    <p class="poke2"><img src="{{ pokemon.image }}"></p>
+    <h1 class="poke2">{{ pokemon.description }}</h1>
+   {% endif %}
+
+{% endblock %}

@@ -12,9 +12,10 @@ class PokemonController extends AbstractController
 {
 
     private $pokemons;
+
     public function __construct()
     {
-        $this-> pokemons = [
+        $this->pokemons = [
             [
                 'id' => 1,
                 'title' => 'Pikachu',
@@ -97,14 +98,13 @@ class PokemonController extends AbstractController
     }
 
     #[Route('/pokemon_show/{idPokemon}', name: 'show_pokemon')]
-    public function showPokemon($idPokemon, Request $request):Response
+    public function showPokemon($idPokemon, Request $request): Response
         // je type ma variable $request elle n acceptera que la classe request
         //en typant ma methode je retourne une instance de la classe Response
     {
 //        $request= new Request($_GET, $_POST, etc);
 //        $request = Request::createFromGlobals();
 //        $idPokemon = $request->query->get('id');
-
 
 
         $pokemonFound = null;
@@ -115,7 +115,6 @@ class PokemonController extends AbstractController
             }
 
         }
-
 
 
         return $this->render('Page/pokemon_show.html.twig', [
@@ -137,12 +136,48 @@ class PokemonController extends AbstractController
     }
 
     #[Route('/pokemon-list-db', name: 'pokemon_list_db')]
-    public function listPokemonFromDb(PokemonRepository $pokemonRepository):Response {
+    public function listPokemonFromDb(PokemonRepository $pokemonRepository): Response
+    {
         $pokemons = $pokemonRepository->findAll();
         return $this->render('Page/pokemon_list_db.html.twig', ['pokemons' => $pokemons]);
     }
-// apres avoir crée des pokemons dans ma BDD (php myadmin), je recupere en BDD les pokemons et Symfony va generer une instance de la Table Pokemon cad PokemonRepository
+
+// apres avoir crée des pokemons dans ma BDD (php myadmin), je recupere en BDD les pokemons, symfony va générer une instance de PokemonRepository qui me permet de faire des requêtes SQL dans la table pokemon // Symfony va generer une instance de la Table Pokemon -> il va creer un tableau avec les pokemons a recuperer
+
+
+    #[Route('/pokemon-db/{id}', name: 'pokemon_db_by_id')]
+    public function showPokemonById(int $id, PokemonRepository $pokemonRepository): Response
+    {
+
+        $pokemon = $pokemonRepository->find($id);
+        return $this->render('Page/pokemon-db.html.twig', ['pokemon' => $pokemon]);
+    }
+
+    #[Route('/pokemon_search', name: 'pokemon_search')]
+    public function searchPokemon(Request $request, PokemonRepository $pokemonRepository): Response
+    {
+
+        $pokemonFound = null;
+
+        if ($request->request->has('title')) {
+
+            $search = $request->request->get('title');
+            $pokemonFound = $pokemonRepository->findOneBy(['Title'=>$search]);
+
+            if(!$pokemonFound){
+                $html = $this->renderView('Page/404.html.twig');
+                return new Response ($html, 404);
+            }
+        }
+
+
+        return $this->render('Page/pokemon-search.html.twig', ['pokemon' => $pokemonFound]);
+
+
+    }
 
 }
+
+
 
 
