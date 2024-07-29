@@ -498,16 +498,28 @@ input {
     font-family:"Pokemon Hollow";
 }
 
-.insertPoke label {
-
-    display:flex;
+section {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
 
 }
 
-label p{
-width:200px;
+.insertPoke {
+    width: 50%;
+}
+.insertPoke label {
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.pi {
+
+width:300px;
 }
 
 .submit{

@@ -4,6 +4,7 @@ declare(strict_types=1); // pour etre sur de l'affichage permet de reperer les e
 namespace App\Controller;
 
 use App\Entity\Pokemon;
+use App\Form\PokemonType;
 use App\Repository\PokemonRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -191,63 +192,89 @@ class PokemonController extends AbstractController
         // on utilise la classe Entity Manager pour
         if (!$pokemon) {
 
-                $html = $this->renderView('Page/404.html.twig');
-                return new Response ($html, 404);
-            }
-
-            $entityManager->remove($pokemon); //preparation : preparer la requete Sql de suppression
-            $entityManager->flush(); // execute : executer la requete préparée
-
-
-            return $this->redirectToRoute('pokemon_list_db'); // je redirige vers ma page list pokemon Bdd et je check si le pokemon a été supprimé
-
+            $html = $this->renderView('Page/404.html.twig');
+            return new Response ($html, 404);
         }
 
-    #[Route('/insert-pokemon-withform', name: 'insert_pokemon_withform')]
-    public function insertPokemonWithForm (EntityManagerInterface $entityManager, Request $request): Response
-    {   // j'initialise la variable //$pokemon à null
-        $pokemon = null;
-        // je check si la requête est du POST, si le form a été envoyé
-        if ($request->getMethod() === 'POST') {
-            // je récupère les données envoyées par l'utilisateur
-            $title = $request->request->get('title');
-            $description = $request->request->get('description');
-            $image = $request->request->get('image');
-            $type = $request->request->get('type');
+        $entityManager->remove($pokemon); //preparation : preparer la requete Sql de suppression
+        $entityManager->flush(); // execute : executer la requete préparée
 
-//pour la premiere methode avec le construct
-//        $pokemon = new Pokemon(
-//            title: 'Roucoups',
-//            description: 'Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36',
-//            image: 'https://www.pokepedia.fr/images/d/d3/Miniature_0018_DEPS.png',
-//            type: 'vol',
+
+        return $this->redirectToRoute('pokemon_list_db'); // je redirige vers ma page list pokemon Bdd et je check si le pokemon a été supprimé
+
+    }
+
+//    #[Route('/insert-pokemon-withform', name: 'insert_pokemon_withform')]
+//    public function insertPokemonWithForm (EntityManagerInterface $entityManager, Request $request): Response
+//    {   // j'initialise la variable //$pokemon à null
+//        $pokemon = null;
+//        // je check si la requête est du POST, si le form a été envoyé
+//        if ($request->getMethod() === 'POST') {
+//            // je récupère les données envoyées par l'utilisateur
+//            $title = $request->request->get('title');
+//            $description = $request->request->get('description');
+//            $image = $request->request->get('image');
+//            $type = $request->request->get('type');
 //
-//        );
-            $pokemon = new Pokemon();
-            // j'instancie la classe pokemon
-            // deuxieme  methode la premiere etant directement  dans le construct dans pokemon.php
+////pour la premiere methode avec le construct
+////        $pokemon = new Pokemon(
+////            title: 'Roucoups',
+////            description: 'Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36',
+////            image: 'https://www.pokepedia.fr/images/d/d3/Miniature_0018_DEPS.png',
+////            type: 'vol',
+////
+////        );
+//            $pokemon = new Pokemon();
+//            // j'instancie la classe pokemon
+//            // deuxieme  methode la premiere etant directement  dans le construct dans pokemon.php
+//
+//            $pokemon->setTitle($title);
+//            $pokemon->setDescription($description);
+//            $pokemon->setImage($image);
+//            $pokemon->setType($type);
+//            // je passe desormais en valeur des propriétés de la classe pokemon
+//            //les données envoyées par l'utilisateur grâce aux fonctions setters
+//
+//            $entityManager->persist($pokemon); //preparation : preparer la requete Sql de suppression
+//            $entityManager->flush(); // execute : executer la requete préparée
+//            // j'enregistre l'instance de la classe
+//            // pokemon dans la table pokemon
+//            // grâce à la classe EntityManager
+//        }
+//
+//        return $this->render('Page/insert-pokemon-withform.html.twig', [
+//            'pokemon' => $pokemon,
+//        ]);
+//        // je retourne une réponse HTTP
+//        // avec le html du formulaire
+//    }
 
-            $pokemon->setTitle($title);
-            $pokemon->setDescription($description);
-            $pokemon->setImage($image);
-            $pokemon->setType($type);
-            // je passe desormais en valeur des propriétés de la classe pokemon
-            //les données envoyées par l'utilisateur grâce aux fonctions setters
+    #[Route('/pokemon-insert-formbuilder', name: 'pokemon_insert_formbuilder')]
+    public function insertPokemonFormBuilder(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        // j ai cree au prealable dans mon terminale en ligne de commande  une classe de "gabarit de formulaire HTML" avec php bin/console make:form, que j ai appelé Pokemon Type qui va etre relié a mon Entity Pokemon (BDD)
 
-            $entityManager->persist($pokemon); //preparation : preparer la requete Sql de suppression
-            $entityManager->flush(); // execute : executer la requete préparée
-            // j'enregistre l'instance de la classe
-            // pokemon dans la table pokemon
-            // grâce à la classe EntityManager
+        $pokemon = new Pokemon();
+        // j'instancie la classe pokemon
+
+
+        $pokemonForm = $this->createForm(PokemonType::class, $pokemon);
+        // ici je génére une instance de la classe de la classe de gabarit de formulaire PokemonType qui va etre reliée a l'Entity Pokemon (BDD)
+        $pokemonForm->handleRequest($request);
+        // le handle request permet de lier le formulaire avec la requête, il recupere les donneées postées dans la variable
+        if ($pokemonForm->isSubmitted() && $pokemonForm->isValid()) {
+        // si le formulaire est submit et qu il est valide alors
+            $entityManager->persist($pokemon); // preparation : on prepare la requete Sql
+            $entityManager->flush(); // execute : on execute la requete préparée
         }
 
-        return $this->render('Page/insert-pokemon-withform.html.twig', [
-            'pokemon' => $pokemon,
+        return $this->render('Page/pokemon-insert-formbuilder.html.twig', [
+            'pokemonForm' => $pokemonForm->createView()
         ]);
-        // je retourne une réponse HTTP
-        // avec le html du formulaire
+        // je retourne une réponse HTTP avec le html de pokemonForm
     }
 }
+
 
 
 

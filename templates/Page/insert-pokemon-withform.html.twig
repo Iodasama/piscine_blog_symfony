@@ -4,25 +4,26 @@
 
 {% block content %}
 
+    <section>
         <form method="post" class="insertPoke">
 
             <label>
-                <p>Titre</p>
+                <p class="pi">Titre</p>
                 <input type="text" name="title">
             </label>
 
             <label>
-                <p>Image</p>
+                <p class="pi">Image</p>
                 <input type="text" name="image">
             </label>
 
             <label>
-                <p> Description</p>
+                <p class="pi"> Description</p>
                 <input type="text" name="description">
             </label>
 
             <label>
-                <p>Type</p>
+                <p class="pi">Type</p>
                 <input type="text" name="type">
             </label>
 
@@ -30,7 +31,7 @@
                 <input type="submit" />
             </div>
         </form>
-
+    </section>
 {% if pokemon %}
 
     <p>Le pokemon {{ pokemon.title }} a bien été créé ! </p>
