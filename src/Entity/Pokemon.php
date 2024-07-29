@@ -27,15 +27,15 @@ class Pokemon
 
 
 
-    public function __construct($title,$description,$image,$type)
-
-    {
-        $this->Title = $title;
-        $this->Description = $description;
-        $this->Image = $image;
-        $this->type = $type;
-
-}
+//    public function __construct($title,$description,$image,$type)
+//
+//    {
+//        $this->Title = $title;
+//        $this->Description = $description;
+//        $this->Image = $image;
+//        $this->type = $type;
+//
+//}
 
 
 

@@ -203,44 +203,67 @@ class PokemonController extends AbstractController
 
         }
 
-    #[Route('/pokemons/insert/manual_insert', name: 'insert_pokemon')]
-    public function insertPokemon(EntityManagerInterface $entityManager): Response
-    {
-        $pokemon = new Pokemon(
-            title: 'Roucoups',
-            description: 'Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36',
-            image: 'https://www.pokepedia.fr/images/d/d3/Miniature_0018_DEPS.png',
-            type: 'vol',
+    #[Route('/insert-pokemon-withform', name: 'insert_pokemon_withform')]
+    public function insertPokemonWithForm (EntityManagerInterface $entityManager, Request $request): Response
+    {   // j'initialise la variable //$pokemon à null
+        $pokemon = null;
+        // je check si la requête est du POST, si le form a été envoyé
+        if ($request->getMethod() === 'POST') {
+            // je récupère les données envoyées par l'utilisateur
+            $title = $request->request->get('title');
+            $description = $request->request->get('description');
+            $image = $request->request->get('image');
+            $type = $request->request->get('type');
 
-        );
+//pour la premiere methode avec le construct
+//        $pokemon = new Pokemon(
+//            title: 'Roucoups',
+//            description: 'Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36',
+//            image: 'https://www.pokepedia.fr/images/d/d3/Miniature_0018_DEPS.png',
+//            type: 'vol',
+//
+//        );
+            $pokemon = new Pokemon();
+            // j'instancie la classe pokemon
+            // deuxieme  methode la premiere etant directement  dans le construct dans pokemon.php
 
-        // deuxieme  methode la premiere etant directement  dans le construct dans pokemon.php
-//        $pokemon = new Pokemon;
-//        $pokemon->setTitle('Roucoups');
-//        $pokemon->setDescription('Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36');
-//        $pokemon->setImage('https://www.pokepedia.fr/images/d/d3/Miniature_0018_DEPS.png');
-//        $pokemon->setType('vol');
+            $pokemon->setTitle($title);
+            $pokemon->setDescription($description);
+            $pokemon->setImage($image);
+            $pokemon->setType($type);
+            // je passe desormais en valeur des propriétés de la classe pokemon
+            //les données envoyées par l'utilisateur grâce aux fonctions setters
 
-        $entityManager->persist($pokemon); //preparation : preparer la requete Sql de suppression
-        $entityManager->flush(); // execute : executer la requete préparée
+            $entityManager->persist($pokemon); //preparation : preparer la requete Sql de suppression
+            $entityManager->flush(); // execute : executer la requete préparée
+            // j'enregistre l'instance de la classe
+            // pokemon dans la table pokemon
+            // grâce à la classe EntityManager
+        }
 
-        return $this->redirectToRoute('pokemon_list_db');
+        return $this->render('Page/insert-pokemon-withform.html.twig', [
+            'pokemon' => $pokemon,
+        ]);
+        // je retourne une réponse HTTP
+        // avec le html du formulaire
     }
-//('pokemons/insert/manual_insert', ['pokemon=>$pokemon']);
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

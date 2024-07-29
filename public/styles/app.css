@@ -498,7 +498,20 @@ input {
     font-family:"Pokemon Hollow";
 }
 
-.pokemonForm {
+.insertPoke label {
 
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
 
+}
+
+label p{
+width:200px;
+}
+
+.submit{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }
