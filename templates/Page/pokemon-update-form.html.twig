@@ -1,0 +1,27 @@
+{% extends "Page/base.html.twig" %}
+
+{% block metatitle%} Pokemon Update form  {% endblock %}
+
+{% block content %}
+
+    {#    {{ form(pokemonForm) }}#}
+
+    {% if app.request.method == 'POST' %}
+
+        <p>Le pokemon {{ pokemon.title }} a bien été update! </p>
+    {% endif %}
+
+    {{ form_start(pokemonUpdateForm) }}
+
+    {{ form_row(pokemonUpdateForm.Title) }}
+    {{ form_row(pokemonUpdateForm.Image) }}
+    {{ form_row(pokemonUpdateForm.Description) }}
+    {{ form_row(pokemonUpdateForm.type) }}
+
+    {{ form_row(pokemonUpdateForm.submit) }}
+
+
+    {{ form_end (pokemonUpdateForm) }}
+
+
+{% endblock %}

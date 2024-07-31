@@ -485,6 +485,7 @@ main {
 }
 
 label {
+
     font-size: xx-large;
     color:#52110D;
     text-shadow: #FC0 1px 0 10px;
@@ -503,7 +504,6 @@ section {
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-
 }
 
 .insertPoke {

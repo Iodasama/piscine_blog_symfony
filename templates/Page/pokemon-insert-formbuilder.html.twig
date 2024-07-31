@@ -4,6 +4,24 @@
 
 {% block content %}
 
-{{ form(pokemonForm) }}
+{#    {{ form(pokemonForm) }}#}
+
+    {% if app.request.method == 'POST' %}
+
+        <p>Le pokemon {{ pokemon.title }} a bien été créé ! </p>
+    {% endif %}
+
+    {{ form_start(pokemonForm) }}
+
+    {{ form_row(pokemonForm.Title) }}
+    {{ form_row(pokemonForm.Image) }}
+    {{ form_row(pokemonForm.Description) }}
+    {{ form_row(pokemonForm.type) }}
+
+    {{ form_row(pokemonForm.submit) }}
+
+
+    {{ form_end (pokemonForm) }}
+
 
 {% endblock %}

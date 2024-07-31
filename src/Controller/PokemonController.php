@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPUnit\Framework\isEmpty;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 class PokemonController extends AbstractController
 {
 
@@ -259,19 +260,59 @@ class PokemonController extends AbstractController
 
 
         $pokemonForm = $this->createForm(PokemonType::class, $pokemon);
-        // ici je génére une instance de la classe de la classe de gabarit de formulaire PokemonType qui va etre reliée a l'Entity Pokemon (BDD)
+        // ici je génére une instance de la classe de gabarit de formulaire PokemonType qui va etre reliée a l'Entity Pokemon (BDD), createForm vient de la classe Parent
         $pokemonForm->handleRequest($request);
-        // le handle request permet de lier le formulaire avec la requête, il recupere les donneées postées dans la variable
+        // le handle request permet de lier le formulaire avec la requête, il recupere les données postées dans la variable (du POST et les stock dans l'Entity)
         if ($pokemonForm->isSubmitted() && $pokemonForm->isValid()) {
-        // si le formulaire est submit et qu il est valide alors
+            // si le formulaire est submit et qu il est valide alors, le handlerequest sait si cela a été posté ou pas
             $entityManager->persist($pokemon); // preparation : on prepare la requete Sql
             $entityManager->flush(); // execute : on execute la requete préparée
         }
 
         return $this->render('Page/pokemon-insert-formbuilder.html.twig', [
+            'pokemon' => $pokemon,
             'pokemonForm' => $pokemonForm->createView()
+
+
         ]);
         // je retourne une réponse HTTP avec le html de pokemonForm
+
+        // on peut retourner autant de variables qu on veut
+
+
+    }
+
+    // je cree une methode avec une route je m assure au prealable que cela marche avec
+    //un dd (vars:'test'） ；
+    #[Route('/pokemons/update/{id}', name: 'pokemon_update')]
+    public function updatePokemon(int $id,PokemonRepository $pokemonRepository, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $pokemon = $pokemonRepository->find($id);
+        // j'instancie la classe pokemonRepository, pour acceder a des données stockées on utilise Repository, je demande donc a Symfony d'instancier la classe Repository (dans le controller : ici PokemonController)
+        // on aura placer l $id en parametre
+
+
+        $pokemonUpdateForm = $this->createForm(PokemonType::class, $pokemon);
+        // ici je génére une nouvelle instance de la classe de gabarit de formulaire PokemonType (on peut creer plusieurs instances d'une meme classe) qui va etre reliée a l'Entity Pokemon (BDD), createForm vient de la classe Parent (AbstractController)
+
+        $pokemonUpdateForm->handleRequest($request);
+        // le handle request permet de lier le formulaire avec la requête, il recupere les données postées dans la variable (du POST et les stock dans l'Entity)
+        // Pour recuperer une instance de request Symfony vient instancier pour nous, on met request en param
+
+        if ($pokemonUpdateForm->isSubmitted() && $pokemonUpdateForm->isValid()) {
+            // si le formulaire est submit et qu il est valide (de type Post) alors, le handlerequest sait si cela a été posté ou pas
+            $entityManager->persist($pokemon); // preparation : on prepare la requete Sql
+            $entityManager->flush(); // execute : on execute la requete préparée
+        }
+        $pokemonUpdateFormView = $pokemonUpdateForm->createView() ;
+        //
+        return $this->render('Page/pokemon-update-form.html.twig', [
+            'pokemon' => $pokemon,
+            'pokemonUpdateForm' => $pokemonUpdateFormView
+//j envoie en variable twig le formulaire a afficher (deuxieme methode d affichage)
+
+        ]);
+
     }
 }
 

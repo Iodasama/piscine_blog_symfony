@@ -1,6 +1,7 @@
 twig:
     file_name_pattern: '*.twig'
-
+    form_themes: ['bootstrap_5_layout.html.twig']
+#    penser a preciser que l'on veut bootstrap pour le formulaire ici et faire le link dans base
 when@test:
     twig:
         strict_variables: true
