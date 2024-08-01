@@ -15,7 +15,7 @@ class Pokemon
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(['min'=>5])] // contrainte 5 caracteres
+
     private ?string $Title = null;
 
 
@@ -27,6 +27,9 @@ class Pokemon
 
     #[ORM\Column(length: 255)]
     private ?string $type;
+
+    #[ORM\ManyToOne(inversedBy: 'pokemons')]
+    private ?Generation $generation = null;
 
 
 
@@ -92,6 +95,18 @@ class Pokemon
     public function setImage(string $Image): static
     {
         $this->Image = $Image;
+
+        return $this;
+    }
+
+    public function getGeneration(): ?Generation
+    {
+        return $this->generation;
+    }
+
+    public function setGeneration(?Generation $generation): static
+    {
+        $this->generation = $generation;
 
         return $this;
     }

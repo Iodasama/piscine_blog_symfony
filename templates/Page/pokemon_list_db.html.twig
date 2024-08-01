@@ -13,7 +13,7 @@
             <h1 class="poke2">{{ pokemon.description }}</h1>
             <a href="{{ path('pokemon_db_by_id', {id:pokemon.id}) }}">Go get Your Poke</a>
             <a href="{{ path('delete_pokemon', {id:pokemon.id}) }}">Suppress Your Poke</a>
-
+            <a href="{{ path('pokemon_update', {id:pokemon.id}) }}">Update Your Poke</a>
         {% endfor %}
     </main>
 {% endblock %}

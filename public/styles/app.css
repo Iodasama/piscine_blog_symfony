@@ -8,6 +8,7 @@
 
 body {
     background-color: skyblue;
+    font-family: "Pokemon Hollow";
 }
 
 .Title {
@@ -448,6 +449,8 @@ width:30%;
     width:30%;
     animation-duration: 5s;
     animation-name: slidein;
+    color:#52110D;
+    text-shadow: #FC0 1px 0 10px;
 }
 
 @keyframes slidein {
