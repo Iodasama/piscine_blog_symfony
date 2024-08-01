@@ -22,8 +22,7 @@ class Generation
      * @var Collection<int, Pokemon>
      */
     #[ORM\OneToMany(targetEntity: Pokemon::class, mappedBy: 'generation')]
-    private Collection $pokemons; // Doctrine crée une classe Collection automatiquement car les tableaux ont des faiblesses en php, cela va permettre de faire des requetes, d'optimiser.
-
+    private Collection $pokemons; // Doctrine crée une classe Collection automatiquement car les tableaux ont des faiblesses en php
     public function __construct()
     {
         $this->pokemons = new ArrayCollection();
